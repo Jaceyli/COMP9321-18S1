@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NSW Crime Data Import and Publication Service</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="my.js"></script>
+
+
+</head>
+
+<body ng-app="myApp">
+    <br/>
+    <h3 style="text-align: center">NSW Crime Data Import and Publication Service</h3>
+    <hr/>
+
+    <div style="width:900px; margin-left: auto; margin-right: auto; padding-top: 30px">
+
+        <!--login-->
+        <div  ng-controller="ngc0" class="col-md-7" style="margin-left: auto; margin-right: auto;">
+            <h5> Authentication details</h5><br/>
+            <form ng-submit="mySubmit0()" class="form-horizontal" name="userForm">
+               <div class="form-group">
+
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-2 col-form-label">Username:</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="col-sm-10 form-control" id="username" ng-model="username" placeholder="admin or guest">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-2 col-form-label">Password:</label>
+                        <div class="col-sm-10">
+                          <input type="password" class="col-sm-10 form-control" id="password" ng-model="password" placeholder="admin or guest">
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    <button type="submit" class="col-sm-4 btn btn-primary" >Submit</button>
+                </div>
+            </form>
+            <pre style="color:#ffc107">{{ login_response_status }}</pre>
+            <pre style="color:#17a2b8">{{ login_response }}</pre>
+        </div>
+        <hr><br>
+
+        <!--import data-->
+        <div ng-controller="ngc1">
+            <h5>LGA Data Import</h5><br/>
+            <form ng-submit="mySubmit1()"  class="form-row">
+                <div class="col" style="margin-left: 35px;">
+                 <label for="iga" class="col-form-label">Iga Name/ Postcode:</label>
+                </div>
+                <div class="col-6">
+                  <input type="text" class="col-10 form-control" id="lganame" ng-model="lganame"  placeholder="Albury or 2640">
+                </div>
+                <div class="col-3">
+                    <button type="submit" id="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </form>
+            <pre style="color:#ffc107">{{ import_response_status }}</pre>
+            <div style="max-height: 600px;overflow: auto"><pre style="color:#17a2b8;">{{ import_response }}</pre></div>
+        </div>
+        <br/><hr/>
+
+
+        <!--get all results-->
+        <div ng-controller="ngc2">
+            <form ng-submit="mySubmit2()" class="form-row">
+                <div class="col-8" ><h5>Get all the data</h5><br/></div>
+                <div CLASS="col-1">
+                    <input type="checkbox" ng-model="json1" ng-true-value="'application/json'" ng-false-value="'application/xml'">Json
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </form>
+            <pre style="color:#ffc107">{{ all_response_status }}</pre>
+            <div style="max-height: 600px;overflow: auto"><pre style="color:#17a2b8;">{{ all_response }}</pre></div>
+
+        </div>
+        <br><hr/>
+
+        <!--get a single result-->
+        <div ng-controller="ngc3">
+            <h5>Get a single LGA data</h5><br/>
+            <form  ng-submit="mySubmit3()" class="form-row">
+                <div class="col" style="margin-left: 35px;">
+                 <label for="iga" class="col-form-label">Id:</label>
+                </div>
+                <div class="col-7">
+                  <input type="text" class="col-10 form-control" id="get_tid" ng-model="get_tid" placeholder="1524539544">
+                </div>
+                <div class="col-1">
+                    <input type="checkbox" ng-model="json2" ng-true-value="'application/json'" ng-false-value="'application/xml'"> Json
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </form>
+            <pre style="color:#ffc107">{{ one_response_status }}</pre>
+            <div style="max-height: 600px;overflow: auto"><pre style="color:#17a2b8;">{{ one_response }}</pre></div>
+        </div>
+
+
+        <!--delete one area-->
+        <div ng-controller="ngc4">
+            <h5>Delete a single LGA data</h5><br/>
+            <form  ng-submit="mySubmit4()" class="form-row">
+                <div class="col" style="margin-left: 35px;">
+                 <label for="iga" class="col-form-label">Id:</label>
+                </div>
+                <div class="col-7">
+                  <input type="text" class="col-10 form-control" id="del_tid" ng-model="del_tid" placeholder="1524539544">
+                </div>
+                <div class="col-1"></div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </form>
+            <pre style="color:#ffc107">{{ del_response_status }}</pre>
+            <pre style="color:#17a2b8">{{ del_response }}</pre>
+        </div>
+
+
+        <!--select data with filers-->
+        <div ng-controller="ngc5">
+            <h5>Get LGA data with filter</h5><br/>
+            <form  ng-submit="mySubmit5()" class="form-row">
+                <div class="col-1" style="margin-left: 35px;">
+                 <label for="filter" class="col-form-label">Filter:</label>
+                </div>
+                <div class="col-7">
+                  <input type="text" class="col-12 form-control" id="filter" ng-model="filter" placeholder="IgaName eq Albury and year eq 2014">
+                </div>
+                <div >
+                    <input type="checkbox" ng-model="json3" ng-true-value="'application/json'" ng-false-value="'application/xml'">Json
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </form>
+            <pre style="color:#ffc107">{{ filter_response_status }}</pre>
+            <div style="max-height: 600px;overflow: auto"><pre style="color:#17a2b8;">{{ filter_response }}</pre></div>
+        </div>
+
+
+
+
+
+    </div>
+
+</body>
+</html>

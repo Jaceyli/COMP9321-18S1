@@ -1,0 +1,9 @@
+Flask==0.11.1
+Flask-Cors==3.0.3
+Flask_RESTful==0.2.12
+requests==2.1.0
+itsdangerous==0.24
+dicttoxml==1.7.4
+feedgen==0.6.1
+mongoengine==0.15.0
+xlrd==1.1.0
